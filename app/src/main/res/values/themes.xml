@@ -2,7 +2,7 @@
     <style name="Theme.MyChatApp" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryLightColor</item>
-        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorOnPrimary">@color/color_white</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
         <item name="android:windowNoTitle">true</item>
@@ -14,4 +14,7 @@
 
     </style>
 
+    <style name="CustomBorderColorMaterialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/material_text_input_border_color</item>
+    </style>
 </resources>

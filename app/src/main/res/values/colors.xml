@@ -12,7 +12,9 @@
 
     <color name="primaryDarkColor">#000000</color>
 
-    <color name="primaryTextColor">#ffffff</color>
-
     <color name="color_white">#ffffff</color>
+
+    <color name="color_white_passive">#80ffffff</color>
+
+    <color name="color_transparent">#00000000</color>
 </resources>

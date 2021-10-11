@@ -1,9 +1,11 @@
 package com.example.android.mychatapp
 
 import android.animation.*
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -56,35 +58,28 @@ class AuthFragment : BaseFragment() {
         }
 
         auth_button_auth.setOnClickListener {
-            val extras = FragmentNavigatorExtras(
-                auth_button_auth to "shared_element"
-            )
+            if(!auth_name_et.text.isNullOrEmpty()) {
+                val extras = FragmentNavigatorExtras(
+                    auth_button_auth to "shared_element"
+                )
 
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.authFragment, true)
-                .build()
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(R.id.authFragment, true)
+                    .build()
 
 
-            view.findNavController().navigate(
-                R.id.action_authFragment_to_chatFragment,
-                null,
-                navOptions,
-                extras
-            )
+                view.findNavController().navigate(
+                    R.id.action_authFragment_to_chatFragment,
+                    null,
+                    navOptions,
+                    extras
+                )
+            }
+            else{
+                highlightInput()
+            }
         }
 
-      /*  lifecycleScope.launch(Dispatchers.IO){
-            try {
-               delay(5000)
-                withContext(Dispatchers.Main){
-                    view.findNavController().navigate(R.id.action_authFragment_to_chatFragment)
-                }
-            }
-            catch (e:Exception){
-                e.printStackTrace()
-            }
-
-        }*/
 
         auth_main_cl.setOnTouchListener { v, event ->
             when (event.action and MotionEvent.ACTION_MASK) {
@@ -114,7 +109,7 @@ class AuthFragment : BaseFragment() {
     private fun playStartingAnimation(xPos: Float, yPos: Float){
 
         val random = Random()
-        val widthAndHeight = random.nextInt(140) + 60
+        val widthAndHeight = random.nextInt(100) + 50
         val imageView = ImageView(requireActivity())
         imageView.setLayoutParams(ConstraintLayout.LayoutParams(widthAndHeight, widthAndHeight))
         imageView.setImageResource(iconsList.get(random.nextInt(iconsList.size)))
@@ -145,19 +140,6 @@ class AuthFragment : BaseFragment() {
                         200
                     )
                 )
-
-     /*   val objectAnimatorButtonScaleX: ObjectAnimator =
-            ObjectAnimator.ofFloat(bottom_nav.btn_3, "scaleX", 1f, 1.2f)
-
-        val objectAnimatorButtonScaleY: ObjectAnimator =
-            ObjectAnimator.ofFloat(bottom_nav.btn_3, "scaleY", 1f, 1.2f)
-
-        val objectAnimatorButtonScaleBackX: ObjectAnimator =
-            ObjectAnimator.ofFloat(bottom_nav.btn_3, "scaleX", 1.2f, 1f)
-
-        val objectAnimatorButtonScaleBackY: ObjectAnimator =
-            ObjectAnimator.ofFloat(bottom_nav.btn_3, "scaleY", 1.2f, 1f)*/
-
 
         val objectAnimatorY: ObjectAnimator = if (random.nextBoolean())
             ObjectAnimator.ofFloat(
@@ -190,15 +172,8 @@ class AuthFragment : BaseFragment() {
         objectAnimatorRotation.duration = (random.nextInt(3000 - 2500) + 2500).toLong()
         objectAnimatorAlpha.duration = (random.nextInt(2000 - 1500) + 1500).toLong()
         objectAnimatorAlpha.startDelay = 200
-      /*  objectAnimatorButtonScaleX.duration = 500
-        objectAnimatorButtonScaleY.duration = 500
-        objectAnimatorButtonScaleBackX.duration = 500
-        objectAnimatorButtonScaleBackY.duration = 500
-        objectAnimatorButtonScaleBackX.startDelay = 500
-        objectAnimatorButtonScaleBackY.startDelay = 500*/
         animatorSet.playTogether(
             objectAnimatorX, objectAnimatorY, objectAnimatorRotation, objectAnimatorAlpha
-//            ,objectAnimatorButtonScaleY,objectAnimatorButtonScaleX,objectAnimatorButtonScaleBackX,objectAnimatorButtonScaleBackY
         )
         animatorSet.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator?) {}
@@ -209,33 +184,19 @@ class AuthFragment : BaseFragment() {
             override fun onAnimationCancel(animation: Animator?) {}
             override fun onAnimationRepeat(animation: Animator?) {}
         })
-        animatorSet?.start()
-
-       /* disableUserInteraction()
-        lifecycleScope.launch(Dispatchers.IO) {
-
-            withContext(Dispatchers.Main){
-
-          *//*      val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), resources.getColor(R.color.color_white), resources.getColor(R.color.primaryColor))
-                colorAnimation.addUpdateListener { animator -> auth_user_name_et.setTextColor(animator.animatedValue as Int) }
-                colorAnimation.duration = 1000
-                colorAnimation.start()*//*
+        animatorSet.start()
 
 
-                auth_user_name_et_overlay.alpha = 1f
-                auth_user_name_et_overlay.scaleX = 1f
-                auth_user_name_et.isCursorVisible = false
-                auth_user_name_et_overlay.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        requireActivity(),
-                        R.anim.scale_x_anim
-                    )
-                )
+    }
 
-
-            }
-        }*/
-
+    private fun highlightInput(){
+        val colorFrom = resources.getColor(R.color.secondaryDarkColor)
+        val colorTo = resources.getColor(R.color.color_transparent)
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
+        colorAnimation.addUpdateListener { animator -> auth_name_material_til.boxBackgroundColor = ((animator.animatedValue as Int)) }
+        colorAnimation.interpolator = AccelerateInterpolator()
+        colorAnimation.duration = 1000
+        colorAnimation.start()
 
     }
 

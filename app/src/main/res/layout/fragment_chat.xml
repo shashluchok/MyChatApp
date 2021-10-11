@@ -3,9 +3,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:transitionName="shared_element"
     android:background="@color/primaryDarkColor"
-    tools:context=".ChatFragment">
+    tools:context=".chat.ChatFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_messages_rv"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/spacing_16dp"
+        android:layout_marginStart="@dimen/spacing_16dp"
+        android:layout_marginEnd="@dimen/spacing_16dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/chat_message_input_cv"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/spacing_16dp"
+        android:layout_marginEnd="@dimen/spacing_16dp"
+        android:layout_marginBottom="@dimen/spacing_16dp"
+        app:cardBackgroundColor="@color/color_white"
+        app:cardCornerRadius="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.example.android.mychatapp.customviews.PreImeEditText
+            android:id="@+id/chat_message_input_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/spacing_16dp"
+            android:layout_marginEnd="50dp"
+            android:textColor="@color/primaryDarkColor"
+            android:hint="@string/message_hint"
+            android:textColorHint="@color/primaryLightColor" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/chat_message_send_cv"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@color/secondaryDarkColor"
+        app:cardCornerRadius="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/chat_message_input_cv"
+        app:layout_constraintEnd_toEndOf="@+id/chat_message_input_cv"
+        app:layout_constraintTop_toTopOf="@+id/chat_message_input_cv">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/send"
+            app:tint="@color/primaryDarkColor" />
+    </androidx.cardview.widget.CardView>
+
 
 
 
