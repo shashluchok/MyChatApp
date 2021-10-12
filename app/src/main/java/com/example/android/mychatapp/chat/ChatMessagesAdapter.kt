@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_message.view.*
 class ChatMessagesAdapter(mContext: Activity):RecyclerView.Adapter<ChatMessagesAdapter.ChatMessagesViewHolder>() {
     class ChatMessagesViewHolder(v: View):RecyclerView.ViewHolder(v)
 
-    val messages = mutableListOf<String>()
+    val messages = mutableListOf<ChatFragment.UserWithMessage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatMessagesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message,parent,false)
@@ -20,7 +20,8 @@ class ChatMessagesAdapter(mContext: Activity):RecyclerView.Adapter<ChatMessagesA
 
     override fun onBindViewHolder(holder: ChatMessagesViewHolder, position: Int) {
         holder.itemView.apply {
-            item_message_message_text.text = messages[position]
+            item_message_message_text.text = messages[position].message
+            item_message_message_user_name.text = messages[position].user + ":"
         }
     }
 
@@ -28,8 +29,8 @@ class ChatMessagesAdapter(mContext: Activity):RecyclerView.Adapter<ChatMessagesA
         return messages.size
     }
 
-    fun addMesage(message:String){
-        messages.add(message)
+    fun addUserWithMessage(userWithMessage: ChatFragment.UserWithMessage){
+        messages.add(userWithMessage)
         notifyItemInserted(messages.lastIndex)
     }
 }

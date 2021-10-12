@@ -9,6 +9,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -70,7 +71,7 @@ class AuthFragment : BaseFragment() {
 
                 view.findNavController().navigate(
                     R.id.action_authFragment_to_chatFragment,
-                    null,
+                    bundleOf("user_name" to auth_name_et.text.toString()),
                     navOptions,
                     extras
                 )

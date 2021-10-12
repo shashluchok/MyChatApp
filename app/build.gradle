@@ -72,5 +72,8 @@ dependencies {
     //Edittext with label
     implementation "ss.anoop:awesome-textinput-layout:1.0.0"
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.8'
+
 
 }

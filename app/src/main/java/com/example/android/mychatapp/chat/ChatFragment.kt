@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.mychatapp.R
 import com.example.android.mychatapp.base.BaseFragment
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.gson.Gson
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.websocket.*
@@ -45,11 +46,14 @@ class ChatFragment : BaseFragment() {
                 isNeedToSend = true
             }
         }
-        connectToChat()
+        val userName = arguments?.getString("user_name")
+        userName?.let{
+            connectToChat(it)
+        }
 
     }
 
-    private fun connectToChat() {
+    private fun connectToChat(userName:String) {
         val client = HttpClient(CIO) {
             install(WebSockets)
             engine {
@@ -62,7 +66,7 @@ class ChatFragment : BaseFragment() {
                 client.ws(
                     method = HttpMethod.Get,
                     host = "myveryfirstappheroku.herokuapp.com",
-                    path = "/chat"
+                    path = "/chat$userName"
                 ) {
                     val messageOutputRoutine = launch { outputMessages() }
                     val userInputRoutine = launch { inputMessages() }
@@ -72,7 +76,7 @@ class ChatFragment : BaseFragment() {
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
                 //...
-                adapter.addMesage(getString(R.string.connection_lost))
+//                adapter.addUserWithMessage(getString(R.string.connection_lost))
                 client.close()
             }
         }
@@ -83,8 +87,9 @@ class ChatFragment : BaseFragment() {
             for (message in incoming) {
                 message as? Frame.Text ?: continue
                 val text = message.readText().toString()
+                val userWithMessage = Gson().fromJson<UserWithMessage>(text,UserWithMessage::class.java)
                 withContext(Dispatchers.Main){
-                    adapter.addMesage(text)
+                    adapter.addUserWithMessage(userWithMessage)
                 }
             }
         } catch (e: Exception) {
@@ -114,6 +119,11 @@ class ChatFragment : BaseFragment() {
             }
         }
     }
+
+    data class UserWithMessage(
+        val message:String,
+        val user: String
+    )
 
 
 }
