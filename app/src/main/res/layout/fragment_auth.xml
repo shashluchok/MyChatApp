@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryDarkColor"
-    tools:context=".AuthFragment">
+    tools:context=".features.auth.AuthFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/phone_lav"

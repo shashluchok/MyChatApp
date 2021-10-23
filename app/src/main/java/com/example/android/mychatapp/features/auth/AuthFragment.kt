@@ -1,7 +1,6 @@
-package com.example.android.mychatapp
+package com.example.android.mychatapp.features.auth
 
 import android.animation.*
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -14,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.example.android.mychatapp.R
 import com.example.android.mychatapp.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_auth.*
 import kotlinx.coroutines.Dispatchers

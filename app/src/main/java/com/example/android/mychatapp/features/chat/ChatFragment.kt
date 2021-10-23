@@ -1,14 +1,12 @@
-package com.example.android.mychatapp.chat
+package com.example.android.mychatapp.features.chat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.mychatapp.R
 import com.example.android.mychatapp.base.BaseFragment
-import com.google.android.material.transition.MaterialContainerTransform
 import com.google.gson.Gson
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -29,9 +27,6 @@ class ChatFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      /*  val transform = MaterialContainerTransform()
-        transform.duration = 500
-        sharedElementEnterTransition = transform*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,8 +70,6 @@ class ChatFragment : BaseFragment() {
                 }
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
-                //...
-//                adapter.addUserWithMessage(getString(R.string.connection_lost))
                 client.close()
             }
         }
